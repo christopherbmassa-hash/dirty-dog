@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.log
+# future .NET API build output
+api/bin/
+api/obj/
+local.settings.json

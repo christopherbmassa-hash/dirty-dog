@@ -1,0 +1,13 @@
+{
+  "name": "dirty-dog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Score keeper for Dirty Dog, the 8-down-to-1-and-back trick-taking card game.",
+  "scripts": {
+    "start": "serve src --listen 5173 --no-clipboard",
+    "dev": "npm start"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

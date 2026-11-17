@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "serve",
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "serve",
+        "pattern": { "regexp": "^x{0}$" },
+        "background": {
+          "activesBegin": ".",
+          "beginsPattern": "serve|Serving|INFO",
+          "endsPattern": "Accepting connections|Serving!|Local:"
+        }
+      }
+    }
+  ]
+}
