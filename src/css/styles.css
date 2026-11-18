@@ -237,6 +237,33 @@ body {
 .lg-took { background: #dfe9f2; color: #1f3d5a; }
 .lg-run { font-weight: 600; }
 
+/* pinned standings bar */
+#game { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+.scoreboard {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 6px;
+  padding: 8px max(12px, env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, var(--rail-light), var(--rail));
+  border-top: 3px solid var(--gold);
+  box-shadow: 0 -8px 24px rgba(0,0,0,.4);
+}
+.sb-player {
+  min-width: 0; text-align: center; padding: 6px 4px; border-radius: 10px;
+  background: var(--felt-dark); border: 1px solid rgba(255,255,255,.08);
+  display: grid; line-height: 1.15;
+}
+.sb-player.leader { background: var(--felt); border: 2px solid var(--gold); box-shadow: 0 0 12px rgba(212,175,55,.35); }
+.sb-rank { font: 700 .68rem var(--sans); text-transform: uppercase; letter-spacing: .08em; color: rgba(244,239,225,.6); }
+.sb-player.leader .sb-rank { color: var(--gold-light); }
+.sb-name { font-weight: 700; font-size: .95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-total { font: 800 1.7rem/1.1 var(--serif); color: var(--gold-light); font-variant-numeric: tabular-nums; }
+.sb-delta { font-size: .72rem; font-weight: 700; color: rgba(244,239,225,.6); }
+.sb-delta.good { color: #7fd8a0; }
+.sb-delta.bad { color: #ff9a8f; }
+@media (min-width: 900px) {
+  .scoreboard { max-width: 1100px; margin: 0 auto; border-radius: 16px 16px 0 0; border: 3px solid var(--gold); border-bottom: 0; }
+}
+
 /* dialog */
 dialog.paper { padding: 22px; max-width: min(440px, calc(100vw - 32px)); border: 0; }
 dialog::backdrop { background: rgba(0,0,0,.55); }
@@ -248,6 +275,10 @@ dialog::backdrop { background: rgba(0,0,0,.55); }
   .steppers { grid-template-columns: 1fr; }
   .cell { min-width: 78px; padding: 6px 4px; }
   .bar-title { font-size: 1.4rem; }
+  .scoreboard { gap: 4px; padding-left: 8px; padding-right: 8px; }
+  .sb-name { font-size: .82rem; }
+  .sb-total { font-size: 1.35rem; }
+  .sb-delta { font-size: .65rem; }
   .entry-btns { width: 100%; }
   .entry-btns .btn { flex: 1; }
 }

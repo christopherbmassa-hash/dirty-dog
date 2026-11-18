@@ -153,6 +153,31 @@
   function renderGame() {
     renderEntry();
     renderGrid();
+    renderScoreboard();
+  }
+
+  /** Pinned standings bar: ranked by total, with last hand's points. */
+  function renderScoreboard() {
+    const t = totals();
+    const lastDone = game.rounds.map((rd) => rd.done).lastIndexOf(true);
+    const last = lastDone < 0 ? null : game.rounds[lastDone];
+    const ranked = game.players
+      .map((name, p) => ({ name, p, pts: t[p], delta: last ? score(last.bids[p], last.tricks[p]) : null }))
+      .sort((a, b) => b.pts - a.pts || a.p - b.p);
+    const top = ranked[0].pts;
+    const ord = (n) => ["1st", "2nd", "3rd", "4th", "5th", "6th"][n - 1];
+    let rank = 0;
+    $("#scoreboard").style.setProperty("--n", ranked.length);
+    $("#scoreboard").innerHTML = ranked.map((x, i) => {
+      if (i === 0 || x.pts !== ranked[i - 1].pts) rank = i + 1;
+      const lead = lastDone >= 0 && x.pts === top;
+      return `<div class="sb-player ${lead ? "leader" : ""}">
+        <span class="sb-rank">${lead ? "&#9733; " : ""}${ord(rank)}</span>
+        <span class="sb-name" title="${esc(x.name)}">${esc(x.name)}</span>
+        <span class="sb-total">${fmt(x.pts)}</span>
+        <span class="sb-delta ${x.delta == null ? "" : x.delta > 0 ? "good" : "bad"}">${x.delta == null ? "&nbsp;" : (x.delta > 0 ? "+" : "") + fmt(x.delta) + " last"}</span>
+      </div>`;
+    }).join("");
   }
 
   function stepperHTML(p, key, val, max, sub) {
